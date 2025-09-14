@@ -4,7 +4,8 @@
   "main": "server.cjs",
   "scripts": {
     "start": "node server.cjs",
-    "dev": "nodemon server.cjs"
+    "dev": "nodemon server.cjs",
+  "heroku-postbuild": "npm install"
   },
   "dependencies": {
     "cors": "^2.8.5",
