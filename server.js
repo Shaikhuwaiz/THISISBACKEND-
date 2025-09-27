@@ -11,7 +11,7 @@ const shipmentRoutes = require("./routes/shipmentRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 7001;   // Railway will inject its own PORT
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/shipmentsDB";
+const MONGO_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/shipmentsDB";
 
 // Middleware
 app.use(cors());
