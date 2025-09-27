@@ -1,29 +1,26 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 // Import routers
 const itemRoutes = require("./routes/itemRoutes");
 const shipmentRoutes = require("./routes/shipmentRoutes");
 
 const app = express();
-const PORT = 7001;
+const PORT = process.env.PORT || 7001;   // Railway will inject its own PORT
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/shipmentsDB";
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-
 // MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/shipmentsDB");
-
-mongoose.connection.on("connected", () => {
-  console.log("✅ MongoDB connected successfully");
-});
-
-mongoose.connection.on("error", (err) => {
-  console.error("❌ MongoDB connection error:", err);
-});
+mongoose.connect(MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected successfully"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Use routers
 app.use("/items", itemRoutes);           
@@ -35,5 +32,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
