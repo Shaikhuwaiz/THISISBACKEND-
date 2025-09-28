@@ -10,7 +10,11 @@ const itemRoutes = require("./routes/itemRoutes");
 const shipmentRoutes = require("./routes/shipmentRoutes");
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+
+// ✅ Use Railway’s PORT (fallback to 3000 locally, not 8000)
+const PORT = process.env.PORT || 3000;
+
+// ✅ Make sure you load the right MongoDB URI
 const MONGO_URI = process.env.MONGODB_URI;
 
 // Middleware
@@ -35,6 +39,7 @@ app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
 
+// ✅ Important: use 0.0.0.0 so Railway can bind properly
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
